@@ -38,7 +38,7 @@ export function PinoutPanel() {
     }
 
     const response = await fetch(
-      `https://index.tinytapeout.com/${shuttle.id}.json?fields=author,description,pinout,analog_pins&filter=${project.macro}`,
+      `https://raw.githubusercontent.com/TinyTapeout/tinytapeout-index/refs/heads/main/index/${shuttle.id}.json`,
     );
     const json: { projects: ExtraProjectInfo[] } = await response.json();
     const result = json.projects.find((p) => p.macro === project.macro);
@@ -53,11 +53,11 @@ export function PinoutPanel() {
   return (
     <Stack mt={1}>
       <Typography variant="h6">
-        {projectInfo.loading ? 'Loading...' : selectedProject()?.title ?? 'Error'}
+        {projectInfo.loading ? 'Loading...' : (selectedProject()?.title ?? 'Error')}
         <Show when={projectInfo()}> by {projectInfo()?.author}</Show>
       </Typography>
       <Typography variant="body2" color="textSecondary">
-        {projectInfo.error ? 'Error loading documentation' : projectInfo()?.description ?? ''}
+        {projectInfo.error ? 'Error loading documentation' : (projectInfo()?.description ?? '')}
       </Typography>
       <Table>
         <TableHead>

@@ -30,7 +30,7 @@ export async function loadShuttle(id: string) {
   });
   try {
     const request = await fetch(
-      `https://index.tinytapeout.com/${id}.json?fields=title,author,repo,address,macro,clock_hz,commit,danger_level,danger_reason`,
+      `https://raw.githubusercontent.com/TinyTapeout/tinytapeout-index/refs/heads/main/index/${id}.json`,
     );
     const shuttleIndex: { projects: Project[] } = await request.json();
     shuttleIndex.projects.sort((a, b) => a.title.localeCompare(b.title));
